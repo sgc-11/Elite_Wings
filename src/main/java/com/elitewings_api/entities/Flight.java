@@ -1,4 +1,4 @@
-package com.elitewings_api;
+package com.elitewings_api.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

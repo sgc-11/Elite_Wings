@@ -1,4 +1,4 @@
-package com.elitewings_api;
+package com.elitewings_api.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

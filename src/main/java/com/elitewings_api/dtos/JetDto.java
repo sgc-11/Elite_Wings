@@ -1,7 +1,22 @@
 package com.elitewings_api.dtos;
 
+import com.elitewings_api.entities.Jet;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Value;
+
+import java.io.Serializable;
+
 /**
- * DTO for {@link com.elitewings_api.Jet}
+ * DTO for {@link Jet}
  */
-public class JetDto {
-  }
+@Value
+public class JetDto implements Serializable {
+    @NotNull
+    @Size(max = 150)
+    String model;
+    @NotNull
+    Integer capacity;
+    @NotNull
+    CelebrityDto owner;
+}

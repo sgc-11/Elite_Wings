@@ -1,6 +1,6 @@
-package com.elitewings_api;
+package com.elitewings_api.dtos;
 
-import com.elitewings_api.dtos.FlightDto;
+import com.elitewings_api.entities.Securityreport;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Value;
