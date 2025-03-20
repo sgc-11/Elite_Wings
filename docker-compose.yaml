@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: EliteWings_container
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge

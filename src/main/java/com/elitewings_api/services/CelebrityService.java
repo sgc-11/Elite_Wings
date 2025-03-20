@@ -30,35 +30,52 @@ public class CelebrityService {
 }
 // Post
     public CelebrityDto createCelebrity(CelebrityDto celebrityDto) {
-        Celebrity celebrity = new Celebrity();
-        celebrity.setId(UUID.randomUUID());
-        celebrity.setName(celebrityDto.getName());
-        celebrity.setProfession(celebrityDto.getProfession());
-        celebrity.setNetWorth(celebrityDto.getNetWorth());
-        celebrity.setSuspiciousActivity(celebrityDto.getSuspiciousActivity());
-        celebrityRepository.save(celebrity);
-        return convertToDto(celebrity);
+        Celebrity newCeb = new Celebrity();
+        newCeb.setId(UUID.randomUUID()); // Asigna UUID
+        //Asigna valores ingresados por JSON
+        newCeb.setName(celebrityDto.getName());
+        newCeb.setProfession(celebrityDto.getProfession());
+        newCeb.setNetWorth(celebrityDto.getNetWorth());
+        newCeb.setSuspiciousActivity(celebrityDto.getSuspiciousActivity());
+        //Guarda y retorna
+        celebrityRepository.save(newCeb);
+        return convertToDto(newCeb);
     };
 // Put
     public CelebrityDto updateCelebrity(UUID id,CelebrityDto celebrityDto) {
-        Celebrity celebrity = celebrityRepository.findById(id)
-                .orElseThrow(() -> new CelebrityNotFoundException("Celebrity with id " + id + " not found"));
-        celebrity.setName(celebrityDto.getName());
-        celebrity.setProfession(celebrityDto.getProfession());
-        celebrity.setNetWorth(celebrityDto.getNetWorth());
-        celebrity.setSuspiciousActivity(celebrityDto.getSuspiciousActivity());
-        celebrityRepository.save(celebrity);
-        return convertToDto(celebrity);
+        //Buscar el id
+        Celebrity updatedCeb = celebrityRepository.findById(id)
+                .orElseThrow(() -> new CelebrityNotFoundException("Celebrity id " + id + " not found"));
+
+        //Asigna el cambio o los cambios que sean necesarios si no son entradas nulas
+        if(celebrityDto.getName() != null) {
+            updatedCeb.setName(celebrityDto.getName());
+        }
+        if(celebrityDto.getProfession() != null) {
+            updatedCeb.setProfession(celebrityDto.getProfession());
+        }
+        if(celebrityDto.getNetWorth() != null) {
+            updatedCeb.setNetWorth(celebrityDto.getNetWorth());
+        }
+        if(celebrityDto.getSuspiciousActivity() != null) {
+            updatedCeb.setSuspiciousActivity(celebrityDto.getSuspiciousActivity());
+        }
+
+        //Guardar
+        celebrityRepository.save(updatedCeb);
+        return convertToDto(updatedCeb);
     };
 // Delete
     public void deleteCelebrity(UUID id) {
+        //Buscar por id
         Celebrity celebrity = celebrityRepository.findById(id)
                 .orElseThrow(() -> new CelebrityNotFoundException("Celebrity with id " + id + " not found"));
+
         celebrityRepository.deleteById(id);
     }
 
 
-
+//Metodo para seleccionar los datos para el DTO
     private CelebrityDto convertToDto(Celebrity celebrity) {
         return new CelebrityDto(
                 celebrity.getName(),

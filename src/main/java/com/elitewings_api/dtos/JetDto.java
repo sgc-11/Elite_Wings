@@ -11,7 +11,7 @@ import java.io.Serializable;
  * DTO for {@link Jet}
  */
 @Value
-public class JetDto implements Serializable {
+public class JetDto {
     @NotNull
     @Size(max = 150)
     String model;

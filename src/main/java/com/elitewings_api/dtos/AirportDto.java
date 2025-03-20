@@ -12,7 +12,7 @@ import java.io.Serializable;
  * DTO for {@link Airport}
  */
 @Value
-public class AirportDto implements Serializable {
+public class AirportDto {
     @NotNull
     @Size(max = 100)
     String name;

@@ -35,7 +35,6 @@ public class Airport {
     @Column(name = "capacity", nullable = false)
     private Integer capacity;
 
-    @Size(max = 200)
     @ColumnDefault("'Simon and Paulina the best owners'")
     @Column(name = "owners", length = 200)
     private String owners;

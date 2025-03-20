@@ -12,7 +12,7 @@ import java.time.Instant;
  * DTO for {@link Flight}
  */
 @Value
-public class FlightDto implements Serializable {
+public class FlightDto {
     @NotNull
     CelebrityDto celebrity;
     @NotNull

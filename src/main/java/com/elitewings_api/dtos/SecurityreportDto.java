@@ -11,7 +11,7 @@ import java.io.Serializable;
  * DTO for {@link Securityreport}
  */
 @Value
-public class SecurityreportDto implements Serializable {
+public class SecurityreportDto {
     @NotNull
     FlightDto flight;
     @NotNull
