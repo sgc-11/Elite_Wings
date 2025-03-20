@@ -5,6 +5,7 @@ import com.elitewings_api.entities.Jet;
 import com.elitewings_api.exceptions.JetNotFoundException;
 import com.elitewings_api.repositories.CelebrityRepository;
 import com.elitewings_api.repositories.JetRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +16,12 @@ import java.util.UUID;
 public class JetService {
 
     private final JetRepository jetRepository;
-    private CelebrityRepository celebrityRepository;
+    private final CelebrityRepository celebrityRepository;
 
-    public JetService(JetRepository jetRepository) {
+    @Autowired
+    public JetService(JetRepository jetRepository, CelebrityRepository celebrityRepository) {
         this.jetRepository = jetRepository;
+        this.celebrityRepository = celebrityRepository;
     }
 
     //Get All
@@ -36,6 +39,7 @@ public class JetService {
     // Post
     public JetDto createJet(JetDto jetDto) {
         Jet newJet = new Jet();
+        newJet.setId(UUID.randomUUID());
         newJet.setModel(jetDto.getModel());
         newJet.setCapacity(jetDto.getCapacity());
         //Buscar la celebridad por id y agregarla

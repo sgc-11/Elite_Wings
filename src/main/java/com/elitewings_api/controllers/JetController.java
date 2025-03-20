@@ -36,16 +36,16 @@ public class JetController {
         return new ResponseEntity<>(newJet, HttpStatus.CREATED);
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     ResponseEntity<JetDto> updateJet(@PathVariable UUID id,@RequestBody JetDto jet) {
         JetDto jetUpdated = jetService.updateJet(id, jet);
         return ResponseEntity.ok(jetUpdated);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{id}")
     ResponseEntity<JetDto> deleteJet(@PathVariable UUID id) {
         jetService.deleteJet(id);
-        System.out.println("Jet deleted successfully");
+
         return ResponseEntity.noContent().build();
     }
 
