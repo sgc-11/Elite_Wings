@@ -1,5 +1,6 @@
 package com.elitewings_api.repositories;
 
+import com.elitewings_api.entities.Celebrity;
 import com.elitewings_api.entities.Flight;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -68,7 +68,7 @@
 //        );
 //    }
 //
-//    // Helper method to find Celebrity entity from CelebrityDto
+////     Helper method to find Celebrity entity from CelebrityDto
 ////    private Celebrity findCelebrityByDto(CelebrityDto celebrityDto) {
 ////        return celebrityRepository.findByName(celebrityDto.getName())
 ////                .orElseThrow(() -> new RuntimeException("Celebrity not found: " + celebrityDto.getName()));
