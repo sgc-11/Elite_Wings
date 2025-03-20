@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface CelebrityRepository extends JpaRepository<Celebrity, UUID> {
     Celebrity findCelebrityById(UUID id);
+    Celebrity findByName(String name);
 }
