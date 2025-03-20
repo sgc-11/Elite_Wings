@@ -42,7 +42,7 @@ public class SecurityReportService {
         return convertToDto(saved);
     }
 
-    // 2) Obtener reportes no resueltos
+    // GET
     public List<SecurityreportDto> getUnresolvedReports() {
         List<Securityreport> unresolved = securityReportRepository.findByIsResolvedFalse(true);
         return unresolved.stream()
@@ -50,7 +50,7 @@ public class SecurityReportService {
                 .collect(Collectors.toList());
     }
 
-    // 3) Marcar reporte como resuelto
+    // PATCH
     public SecurityreportDto resolveReport(UUID id) {
         Securityreport report = securityReportRepository.findById(id)
                 .orElseThrow(() -> new SecurityReportNotFoundException("Report not found"));
