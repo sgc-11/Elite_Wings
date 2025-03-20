@@ -45,6 +45,7 @@ import java.util.UUID;
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCelebrity(@PathVariable UUID id) {
         celebrityService.deleteCelebrity(id);
+        System.out.println("Celebrity deleted successfully");
         return ResponseEntity.noContent().build();
     }
 }
