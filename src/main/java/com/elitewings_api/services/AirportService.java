@@ -23,13 +23,13 @@ public class AirportService {
     public List<AirportDto> getAllAirports() {
         return airportRepository.findAll().stream()
                 .map(this::convertToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     // GET airport by ID
     public AirportDto getAirportById(UUID id) {
         Airport airport = airportRepository.findById(id)
-                .orElseThrow(() -> new AirportNotFoundException("Airport not found"));
+                .orElseThrow(() -> new AirportNotFoundException("Airport" + id + "not found"));
         return convertToDto(airport);
     }
 

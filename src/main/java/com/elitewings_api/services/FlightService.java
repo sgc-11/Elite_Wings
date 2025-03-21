@@ -10,6 +10,7 @@ import com.elitewings_api.exceptions.FlightNotFoundException;
 import com.elitewings_api.repositories.CelebrityRepository;
 import com.elitewings_api.repositories.FlightRepository;
 import com.elitewings_api.repositories.JetRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class FlightService {
     private final JetRepository jetRepository;
 
     //Constructor
+    @Autowired
     public FlightService(FlightRepository flightRepository,
                          CelebrityRepository celebrityRepository,
                          JetRepository jetRepository) {
@@ -38,38 +40,30 @@ public class FlightService {
                 .toList();
     }
 
-    //POST
-    public FlightDto registerFlight(FlightDto flightDto) {
-        Flight flight = new Flight();
-        flight.setId(UUID.randomUUID());
-
-        // find the celebrity
-        Celebrity celebrity = celebrityRepository.findByName(flightDto.getCelebrity().getName());
-        if (celebrity == null) {
-            throw new RuntimeException("Celebrity " + flightDto.getCelebrity().getName() + "not found.");
-        }
-
-        // find the jet
-        Jet jet = jetRepository.findByModel(flightDto.getJet().getModel());
-        if (jet == null) {
-            throw new RuntimeException("Jet " + flightDto.getJet().getModel() + "not found.");
-        }
-
-        flight.setDepartureAirport(flightDto.getDepartureAirport());
-        flight.setArrivalAirport(flightDto.getArrivalAirport());
-        flight.setDepartureTime(flightDto.getDepartureTime());
-        flight.setArrivalTime(flightDto.getArrivalTime());
-        flight.setPurpose(flightDto.getPurpose());
-
-        Flight savedFlight = flightRepository.save(flight);
-        return convertToDto(savedFlight);
-    }
-
     //GET (flight details)
     public FlightDto getFlightById(UUID id) {
         Flight flight = flightRepository.findById(id)
-                .orElseThrow(() -> new FlightNotFoundException("Flight not found"));
+                .orElseThrow(() -> new FlightNotFoundException("Flight" + id +"not found"));
         return convertToDto(flight);
+    }
+
+    //POST
+    public FlightDto registerFlight(FlightDto flightDto) {
+        Flight newFlight = new Flight();
+        newFlight.setId(UUID.randomUUID());
+        newFlight.setArrivalAirport(flightDto.getArrivalAirport());
+        newFlight.setDepartureAirport(flightDto.getDepartureAirport());
+        //Celebridad
+        newFlight.setCelebrity(celebrityRepository.findCelebrityById(UUID.fromString(flightDto.getCelebrity())));
+        //Jet
+        newFlight.setJet(jetRepository.findJetById(UUID.fromString(flightDto.getJet())));
+        //Arrival y departure time
+        newFlight.setDepartureTime(flightDto.getDepartureTime());
+        newFlight.setArrivalTime(flightDto.getArrivalTime());
+
+        //Save
+        flightRepository.save(newFlight);
+        return convertToDto(newFlight);
     }
 
     //GET (flagged flights)
@@ -77,38 +71,23 @@ public class FlightService {
         List<Flight> flights = flightRepository.findByPurpose("Suspicious");
         return flights.stream()
                 .map(this::convertToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     // DELETE
     public void cancelFlight(UUID id) {
         if (!flightRepository.existsById(id)) {
-            throw new FlightNotFoundException("Flight not found");
+            throw new FlightNotFoundException("Flight "+ id + "not found");
         }
         flightRepository.deleteById(id);
     }
 
     //convert to DTO
     private FlightDto convertToDto(Flight flight) {
-        //Creamos una instancia de celebrityDto y agregamos los datos
-        CelebrityDto celebrityDto = new CelebrityDto(
-                flight.getCelebrity().getName(),
-                flight.getCelebrity().getProfession(),
-                flight.getCelebrity().getNetWorth(),
-                flight.getCelebrity().getSuspiciousActivity()
-        );
-
-        String ownerId = flight.getJet().getOwner().getId().toString();
-
-        JetDto jetDto = new JetDto(
-                flight.getJet().getModel(),
-                flight.getJet().getCapacity(),
-                ownerId
-        );
 
         return new FlightDto(
-                celebrityDto,
-                jetDto,
+                flight.getCelebrity().getName(),
+                flight.getJet().getModel(),
                 flight.getDepartureAirport(),
                 flight.getArrivalAirport(),
                 flight.getDepartureTime(),

@@ -36,7 +36,7 @@ public class JetService {
                 .orElseThrow(() -> new JetNotFoundException("Jet " + id + " not found"));
         return convertToDto(jet);
     }
-    // Post
+    // POST
     public JetDto createJet(JetDto jetDto) {
         Jet newJet = new Jet();
         newJet.setId(UUID.randomUUID());

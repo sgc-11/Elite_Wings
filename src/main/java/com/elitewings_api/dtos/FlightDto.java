@@ -1,6 +1,7 @@
 package com.elitewings_api.dtos;
 
 import com.elitewings_api.entities.Flight;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.Value;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.UUID;
 
 /**
  * DTO for {@link Flight}
@@ -18,13 +20,15 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FlightDto {
-    CelebrityDto celebrity;
-    JetDto jet;
+    String celebrity;
+    String jet;
     @Size(max = 100)
     String departureAirport;
     @Size(max = 100)
     String arrivalAirport;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     Instant departureTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     Instant arrivalTime;
     @Size(max = 200)
     String purpose;
