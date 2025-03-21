@@ -33,7 +33,7 @@ public class SecurityReportController {
     }
 
     // PATCH
-    @PatchMapping("/{id}/resolve")
+    @PatchMapping("/{id}")
     public ResponseEntity<SecurityReportDto> resolveReport(@PathVariable UUID id, @RequestBody SecurityReportDto dto) {
         SecurityReportDto resolved = securityReportService.resolveReport(id, dto);
         return ResponseEntity.ok(resolved);

@@ -37,6 +37,8 @@ public class AirportService {
         AirportDto dto = new AirportDto();
         dto.setName(airport.getName());
         dto.setCapacity(airport.getCapacity());
+        dto.setLocation(airport.getLocation());
+        dto.setOwners(airport.getOwners());
         return dto;
     }
 }
