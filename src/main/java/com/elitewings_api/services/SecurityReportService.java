@@ -25,6 +25,13 @@ public class SecurityReportService {
         this.flightRepository = flightRepository;
     }
 
+    //GET ALL
+    public List<SecurityReportDto> getAllSecurityReports() {
+        return securityReportRepository.findAll().stream()
+                .map(this::convertToDto)
+                .toList();
+    }
+
     // POST
     public SecurityReportDto fileReport(SecurityReportDto dto) {
         SecurityReport newreport = new SecurityReport();

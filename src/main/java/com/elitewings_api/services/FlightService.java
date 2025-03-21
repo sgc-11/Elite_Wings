@@ -33,7 +33,7 @@ public class FlightService {
         this.jetRepository = jetRepository;
     }
 
-    //Get All flights
+    //Get All
     public List<FlightDto> getAllFlights() {
         return flightRepository.findAll().stream()
                 .map(this::convertToDto)
