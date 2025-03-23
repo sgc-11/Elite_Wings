@@ -11,6 +11,7 @@ import com.elitewings_api.repositories.CelebrityRepository;
 import com.elitewings_api.repositories.FlightRepository;
 import com.elitewings_api.repositories.JetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class FlightService {
     }
 
     //GET (flight details)
+    @Cacheable (value = "flights")
     public FlightDto getFlightById(UUID id) {
         Flight flight = flightRepository.findById(id)
                 .orElseThrow(() -> new FlightNotFoundException("Flight" + id +"not found"));

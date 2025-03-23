@@ -6,6 +6,7 @@ import com.elitewings_api.exceptions.SecurityReportNotFoundException;
 import com.elitewings_api.repositories.FlightRepository;
 import com.elitewings_api.repositories.SecurityreportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,6 +48,7 @@ public class SecurityReportService {
     }
 
     // GET
+    @Cacheable(value = "unresolvedReports")
     public List<SecurityReportDto> getUnresolvedReports() {
         List<SecurityReport> unresolved = securityReportRepository.findAll().stream().filter(res -> !res.getIsResolved()).toList();
 

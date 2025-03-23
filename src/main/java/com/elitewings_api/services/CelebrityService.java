@@ -4,6 +4,7 @@ import com.elitewings_api.dtos.CelebrityDto;
 import com.elitewings_api.entities.Celebrity;
 import com.elitewings_api.exceptions.CelebrityNotFoundException;
 import com.elitewings_api.repositories.CelebrityRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class CelebrityService {
                 .toList();
     }
 // GET one celebrity by ID
+    @Cacheable (value = "clebrities")
     public CelebrityDto getCelebrityById(UUID id) {
         Celebrity celebrity = celebrityRepository.findById(id)
              .orElseThrow(() -> new CelebrityNotFoundException("Celebrity not found"));
