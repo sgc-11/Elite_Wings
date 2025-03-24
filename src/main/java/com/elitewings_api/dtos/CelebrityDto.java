@@ -24,6 +24,5 @@ public class CelebrityDto {
     String profession;
     @Positive
     BigDecimal netWorth;
-
     Boolean suspiciousActivity;
 }

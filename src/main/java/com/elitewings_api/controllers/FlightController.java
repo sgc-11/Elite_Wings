@@ -19,6 +19,12 @@ public class FlightController {
         this.flightService = flightService;
     }
 
+    //Get All
+    @GetMapping()
+    public List<FlightDto> getAllFlights() {
+        return flightService.getAllFlights();
+    }
+
     // POST /api/flights -> Registrar un vuelo
     @PostMapping
     public ResponseEntity<FlightDto> registerFlight(@RequestBody FlightDto flightDto) {

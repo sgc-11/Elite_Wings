@@ -62,6 +62,7 @@ public class FlightService {
         //Arrival y departure time
         newFlight.setDepartureTime(flightDto.getDepartureTime());
         newFlight.setArrivalTime(flightDto.getArrivalTime());
+        newFlight.setPurpose(flightDto.getPurpose());
 
         //Save
         flightRepository.save(newFlight);
